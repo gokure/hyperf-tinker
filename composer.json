@@ -1,0 +1,50 @@
+{
+    "name": "gokure/hyperf-tinker",
+    "description": "A Powerful REPL for the Hyperf framework.",
+    "keywords": ["hyperf", "tinker", "repl", "psysh"],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Gang Wu",
+            "email": "gokure@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "ext-swoole": ">=4.4",
+        "hyperf/contract": "^1.0|^2.0",
+        "hyperf/di": "^1.0|^2.0",
+        "hyperf/command": "^1.0|^2.0",
+        "psy/psysh": "^0.10.6"
+    },
+    "require-dev": {
+        "hyperf/testing": "^1.0|^2.0",
+        "mockery/mockery": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gokure\\HyperfTinker\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gokure\\HyperfTinker\\Tests\\": "tests/",
+            "App\\": "tests/fixtures/app",
+            "One\\Two\\": "tests/fixtures/vendor/one/two"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.1-dev"
+        },
+        "hyperf": {
+            "config": "Gokure\\HyperfTinker\\ConfigProvider"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
