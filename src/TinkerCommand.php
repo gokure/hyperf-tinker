@@ -50,6 +50,7 @@ class TinkerCommand extends HyperfCommand
 
         $config = Configuration::fromInput($this->input);
         $config->setUpdateCheck(Checker::NEVER);
+        $config->setUsePcntl(false);
 
         $config->getPresenter()->addCasters(
             $this->getCasters()
@@ -101,8 +102,8 @@ class TinkerCommand extends HyperfCommand
             'Hyperf\Utils\Collection' => 'Gokure\HyperfTinker\TinkerCaster::castCollection',
         ];
 
-        if (class_exists('Hyperf\DbConnection\Model')) {
-            $casters['Hyperf\DbConnection\Model'] = 'Gokure\HyperfTinker\TinkerCaster::castModel';
+        if (class_exists('Hyperf\DbConnection\Model\Model')) {
+            $casters['Hyperf\DbConnection\Model\Model'] = 'Gokure\HyperfTinker\TinkerCaster::castModel';
         }
 
         return $casters;
