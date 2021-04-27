@@ -35,9 +35,6 @@
         }
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "2.1-dev"
-        },
         "hyperf": {
             "config": "Gokure\\HyperfTinker\\ConfigProvider"
         }
