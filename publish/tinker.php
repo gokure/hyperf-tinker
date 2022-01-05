@@ -10,4 +10,8 @@ return [
     'dont_alias' => [
         //
     ],
+
+    'casters' => [
+        //
+    ],
 ];

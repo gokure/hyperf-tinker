@@ -19,8 +19,12 @@
         "psy/psysh": "^0.10.6"
     },
     "require-dev": {
+        "hyperf/database": "^1.0|^2.0",
         "hyperf/testing": "^1.0|^2.0",
         "mockery/mockery": "^1.4"
+    },
+    "suggest": {
+        "hyperf/database": "The Hypyerf Database package (^1.0|^2.0)."
     },
     "autoload": {
         "psr-4": {
@@ -35,6 +39,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
         "hyperf": {
             "config": "Gokure\\HyperfTinker\\ConfigProvider"
         }
