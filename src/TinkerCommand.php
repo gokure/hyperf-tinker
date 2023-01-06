@@ -100,8 +100,11 @@ class TinkerCommand extends HyperfCommand
     {
         $casters = [
             'Hyperf\Utils\Collection' => 'Gokure\HyperfTinker\TinkerCaster::castCollection',
-            'Hyperf\Utils\Stringable' => 'Gokure\HyperfTinker\TinkerCaster::castStringable',
         ];
+
+        if (class_exists('Hyperf\Utils\Stringable')) {
+            $casters['Hyperf\Utils\Stringable'] = 'Gokure\HyperfTinker\TinkerCaster::castStringable';
+        }
 
         if (class_exists('Hyperf\Database\Model\Model')) {
             $casters['Hyperf\Database\Model\Model'] = 'Gokure\HyperfTinker\TinkerCaster::castModel';

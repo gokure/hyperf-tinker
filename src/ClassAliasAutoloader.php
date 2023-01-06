@@ -72,7 +72,7 @@ class ClassAliasAutoloader
     public function __construct(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
     {
         $this->shell = $shell;
-        $this->vendorPath = dirname(dirname($classMapPath));
+        $this->vendorPath = dirname($classMapPath, 2);
         $this->includedAliases = collect($includedAliases);
         $this->excludedAliases = collect($excludedAliases);
 

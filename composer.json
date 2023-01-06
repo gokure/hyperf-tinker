@@ -50,5 +50,9 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "test": "./vendor/bin/co-phpunit --colors=always",
+        "cs-fix": "./vendor/bin/php-cs-fixer fix $1"
+    }
 }
