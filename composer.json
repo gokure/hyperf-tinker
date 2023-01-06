@@ -11,20 +11,18 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
-        "ext-swoole": ">=4.4",
-        "hyperf/contract": "^1.0|^2.0",
-        "hyperf/di": "^1.0|^2.0",
-        "hyperf/command": "^1.0|^2.0",
+        "php": ">=8.0",
+        "ext-swoole": ">=4.5",
+        "hyperf/contract": "^3.0",
+        "hyperf/di": "^3.0",
+        "hyperf/command": "^3.0",
         "psy/psysh": "^0.10.6"
     },
     "require-dev": {
-        "hyperf/database": "^1.0|^2.0",
-        "hyperf/testing": "^1.0|^2.0",
+        "friendsofphp/php-cs-fixer": "^3.6",
+        "hyperf/database": "^3.0",
+        "hyperf/testing": "^3.0",
         "mockery/mockery": "^1.4"
-    },
-    "suggest": {
-        "hyperf/database": "The Hypyerf Database package (^1.0|^2.0)."
     },
     "autoload": {
         "psr-4": {
@@ -40,7 +38,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev"
+            "dev-master": "2.x-dev"
         },
         "hyperf": {
             "config": "Gokure\\HyperfTinker\\ConfigProvider"

@@ -112,6 +112,6 @@ class TinkerCommand extends HyperfCommand
 
         $config = $this->container->get(ConfigInterface::class);
 
-        return array_merge($casters, (array) $config->get('tinker.casters', []));
+        return array_merge($casters, (array)$config->get('tinker.casters', []));
     }
 }

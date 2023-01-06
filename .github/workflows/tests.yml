@@ -15,8 +15,8 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        php: [ '8.1', '8.0', '7.4' ]
-        hyperf: [ '^2.0' ]
+        php: [ '8.2', '8.1', '8.0' ]
+        hyperf: [ '^3.0' ]
         dependency-version: [prefer-lowest, prefer-stable]
       fail-fast: false
 

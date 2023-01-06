@@ -102,3 +102,10 @@ php bin/hyperf.php tinker
      ],
    }
 ```
+
+## Supported Versions
+
+| Version | Hyperf Version | Php Version       | Status                 |
+| ------- | -------------- | ----------------- | ---------------------- |
+| 2.x     | ^3.0           | >=8.0             | Mainstream support     |
+| 1.x     | ^1.0\|^2.0     | <=7.2\|^8.0\|^8.1 | Security fixes support |

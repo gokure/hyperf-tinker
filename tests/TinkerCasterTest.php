@@ -3,8 +3,8 @@
 namespace Gokure\HyperfTinker\Tests;
 
 use App\Model\User;
-use Hyperf\Utils\Collection;
 use Gokure\HyperfTinker\TinkerCaster;
+use Hyperf\Utils\Collection;
 use PHPUnit\Framework\TestCase;
 
 class TinkerCasterTest extends TestCase
