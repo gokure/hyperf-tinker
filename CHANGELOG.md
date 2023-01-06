@@ -1,6 +1,8 @@
 # Release Notes
 
-## [Unreleased](https://github.com/gokure/hyperf-tinker/compare/v1.0.1...1.x)
+## Unreleased
+
+## v1.1.0 (2023/1/6)
 
 ### Added
 - Added Stringable caster

@@ -1,8 +1,9 @@
 # Hyperf Tinker
 
-[![Latest Stable Version](https://poser.pugx.org/gokure/hyperf-tinker/version.png)](https://packagist.org/packages/gokure/hyperf-tinker)
-[![Total Downloads](https://poser.pugx.org/gokure/hyperf-tinker/d/total.png)](https://packagist.org/packages/gokure/hyperf-tinker)
-[![GitHub license](https://img.shields.io/github/license/gokure/hyperf-tinker)](https://github.com/gokure/hyperf-tinker)
+[![Build Status](https://github.com/gokure/hyperf-tinker/actions/workflows/tests.yml/badge.svg)](https://github.com/gokure/hyperf-tinker/actions)
+[![Latest Stable Version](https://img.shields.io/packagist/v/gokure/hyperf-tinker.svg)](https://packagist.org/packages/gokure/hyperf-tinker)
+[![Total Downloads](https://img.shields.io/packagist/dt/gokure/hyperf-tinker.svg)](https://packagist.org/packages/gokure/hyperf-tinker)
+[![GitHub license](https://img.shields.io/github/license/gokure/hyperf-tinker)](LICENSE)
 
 ## Installation
 
