@@ -2,9 +2,14 @@
 
 ## Unreleased
 
+## v2.0.1 (2023/4/12)
+
+### Fixed
+- Fix dependencies.
+
 ## v2.0.0 (2023/1/6)
 
-## Added
+### Added
 - Support Hyperf 3.0
 
 ## v1.1.0 (2023/1/6)
