@@ -22,6 +22,19 @@ class TinkerCaster
     }
 
     /**
+     * Get an array representing the properties of an html string.
+     *
+     * @param  \Hyperf\ViewEngine\HtmlString  $htmlString
+     * @return array
+     */
+    public static function castHtmlString($htmlString)
+    {
+        return [
+            Caster::PREFIX_VIRTUAL.'html' => $htmlString->toHtml(),
+        ];
+    }
+
+    /**
      * Get an array representing the properties of a fluent string.
      *
      * @param  \Hyperf\Utils\Stringable|\Hyperf\Stringable\Stringable  $stringable
