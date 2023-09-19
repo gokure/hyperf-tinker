@@ -20,9 +20,13 @@ use Symfony\Component\Console\Input\InputArgument;
 class TinkerCommand extends HyperfCommand
 {
     /**
-     * @var ContainerInterface
+     * Hyperf commands to include in the tinker shell.
+     *
+     * @var array
      */
-    protected $container;
+    protected $commandWhitelist = [
+        'migrate', 'migrate:install',
+    ];
 
     public function __construct(ContainerInterface $container)
     {
@@ -56,14 +60,15 @@ class TinkerCommand extends HyperfCommand
             $this->getCasters()
         );
 
+        if ($this->input->getOption('execute')) {
+            $config->setRawOutput(true);
+        }
+
         $shell = new Shell($config);
+        $shell->addCommands($this->getCommands());
         $shell->setIncludes($this->input->getArgument('include'));
 
-        if (isset($_ENV['COMPOSER_VENDOR_DIR'])) {
-            $path = $_ENV['COMPOSER_VENDOR_DIR'];
-        } else {
-            $path = BASE_PATH . DIRECTORY_SEPARATOR . 'vendor';
-        }
+        $path = env('COMPOSER_VENDOR_DIR', BASE_PATH . DIRECTORY_SEPARATOR . 'vendor');
 
         $path .= '/composer/autoload_classmap.php';
 
@@ -89,6 +94,32 @@ class TinkerCommand extends HyperfCommand
         } finally {
             $loader->unregister();
         }
+    }
+
+    /**
+     * Get artisan commands to pass through to PsySH.
+     *
+     * @return array
+     */
+    protected function getCommands(): array
+    {
+        $commands = [];
+
+        foreach ($this->getApplication()->all() as $name => $command) {
+            if (in_array($name, $this->commandWhitelist, true)) {
+                $commands[] = $command;
+            }
+        }
+
+        $config = $this->container->get(ConfigInterface::class);
+
+        foreach ($config->get('tinker.commands', []) as $command) {
+            $commands[] = $this->getApplication()->add(
+                $this->container->get($command)
+            );
+        }
+
+        return $commands;
     }
 
     /**
