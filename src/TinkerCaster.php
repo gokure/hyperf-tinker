@@ -56,7 +56,8 @@ class TinkerCaster
     public static function castModel($model)
     {
         $attributes = array_merge(
-            $model->getAttributes(), $model->getRelations()
+            $model->getAttributes(),
+            $model->getRelations()
         );
 
         $visible = array_flip(

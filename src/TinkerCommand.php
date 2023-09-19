@@ -9,14 +9,10 @@ use Psy\Configuration;
 use Psy\VersionUpdater\Checker;
 use Hyperf\Contract\ConfigInterface;
 use Psr\Container\ContainerInterface;
-use Hyperf\Command\Annotation\Command;
 use Hyperf\Command\Command as HyperfCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-/**
- * @Command
- */
 class TinkerCommand extends HyperfCommand
 {
     /**
@@ -28,10 +24,8 @@ class TinkerCommand extends HyperfCommand
         'migrate', 'migrate:install',
     ];
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
-
         parent::__construct('tinker');
     }
 
@@ -75,7 +69,10 @@ class TinkerCommand extends HyperfCommand
         $config = $this->container->get(ConfigInterface::class);
 
         $loader = ClassAliasAutoloader::register(
-            $shell, $path, $config->get('tinker.alias', []), $config->get('tinker.dont_alias', [])
+            $shell,
+            $path,
+            $config->get('tinker.alias', []),
+            $config->get('tinker.dont_alias', [])
         );
 
         if ($code = $this->input->getOption('execute')) {
