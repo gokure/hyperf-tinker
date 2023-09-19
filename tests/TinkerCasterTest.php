@@ -4,21 +4,32 @@ namespace Gokure\HyperfTinker\Tests;
 
 use App\Model\User;
 use Gokure\HyperfTinker\TinkerCaster;
-use Hyperf\Utils\Collection;
 use PHPUnit\Framework\TestCase;
 
 class TinkerCasterTest extends TestCase
 {
     public function testCanCastCollection()
     {
-        $result = TinkerCaster::castCollection(new Collection(['foo', 'bar']));
+        if (class_exists('Hyperf\Collection\Collection')) {
+            $result = TinkerCaster::castCollection(new \Hyperf\Collection\Collection(['foo', 'bar']));
 
-        $this->assertSame([['foo', 'bar']], array_values($result));
+            $this->assertSame([['foo', 'bar']], array_values($result));
+        } elseif (class_exists('Hyperf\Utils\Collection')) {
+            $result = TinkerCaster::castCollection(new \Hyperf\Utils\Collection(['foo', 'bar']));
+
+            $this->assertSame([['foo', 'bar']], array_values($result));
+        } else {
+            $this->markTestSkipped('skipped.');
+        }
     }
 
     public function testCancastStringable()
     {
-        if (class_exists('Hyperf\Utils\Stringable')) {
+        if (class_exists('Hyperf\Stringable\Stringable')) {
+            $result = TinkerCaster::castStringable(new \Hyperf\Stringable\Stringable('foobar'));
+
+            $this->assertSame(['foobar'], array_values($result));
+        } elseif (class_exists('Hyperf\Utils\Stringable')) {
             $result = TinkerCaster::castStringable(new \Hyperf\Utils\Stringable('foobar'));
 
             $this->assertSame(['foobar'], array_values($result));
