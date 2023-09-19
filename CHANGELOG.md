@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Added
+- Added execute commands.
+- Support `HtmlString` caster.
+
+### Changed
+- Fixed Hyperf version to 3.0.x.
+- To compatible support `Collection` and `Stringable` casters.
+
 ## v2.0.1 (2023/4/12)
 
 ### Fixed
