@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v2.0.2 (2023/9/20)
+
 ### Added
 - Added execute commands.
 - Support `HtmlString` caster.
