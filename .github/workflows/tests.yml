@@ -31,13 +31,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: swoole-5.0.3
+          extensions: swoole-5.1.1
           ini-values: swoole.use_shortname=Off
           tools: composer:v2
 
