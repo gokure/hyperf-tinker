@@ -62,7 +62,8 @@ class TinkerCommand extends HyperfCommand
         $shell->addCommands($this->getCommands());
         $shell->setIncludes($this->input->getArgument('include'));
 
-        $path = env('COMPOSER_VENDOR_DIR', BASE_PATH . DIRECTORY_SEPARATOR . 'vendor');
+        $env = function_exists('\Hyperf\Support\env') ? 'Hyperf\Support\env' : 'env';
+        $path = $env('COMPOSER_VENDOR_DIR', BASE_PATH . DIRECTORY_SEPARATOR . 'vendor');
 
         $path .= '/composer/autoload_classmap.php';
 
@@ -128,20 +129,11 @@ class TinkerCommand extends HyperfCommand
     {
         $casters = [
             'Hyperf\Utils\Collection' => 'Gokure\HyperfTinker\TinkerCaster::castCollection',
+            'Hyperf\Collection\Collection' => 'Gokure\HyperfTinker\TinkerCaster::castCollection',
             'Hyperf\Utils\Stringable' => 'Gokure\HyperfTinker\TinkerCaster::castStringable',
+            'Hyperf\Stringable\Stringable' => 'Gokure\HyperfTinker\TinkerCaster::castStringable',
+            'Hyperf\Database\Model\Model' => 'Gokure\HyperfTinker\TinkerCaster::castModel',
         ];
-
-        if (class_exists('Hyperf\Collection\Collection')) {
-            $casters['Hyperf\Collection\Collection'] = 'Gokure\HyperfTinker\TinkerCaster::castCollection';
-        }
-
-        if (class_exists('Hyperf\Stringable\Stringable')) {
-            $casters['Hyperf\Stringable\Stringable'] = 'Gokure\HyperfTinker\TinkerCaster::castStringable';
-        }
-
-        if (class_exists('Hyperf\Database\Model\Model')) {
-            $casters['Hyperf\Database\Model\Model'] = 'Gokure\HyperfTinker\TinkerCaster::castModel';
-        }
 
         $config = $this->container->get(ConfigInterface::class);
 
