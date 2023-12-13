@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gokure\HyperfTinker;
 
-use Hyperf\Utils\Str;
 use Psy\Shell;
 
 class ClassAliasAutoloader
@@ -33,14 +32,14 @@ class ClassAliasAutoloader
     /**
      * Explicitly included namespaces/classes.
      *
-     * @var \Hyperf\Utils\Collection
+     * @var \Hyperf\Collection\Collection|\Hyperf\Utils\Collection
      */
     protected $includedAliases;
 
     /**
      * Excluded namespaces/classes.
      *
-     * @var \Hyperf\Utils\Collection
+     * @var \Hyperf\Collection\Collection|\Hyperf\Utils\Collection
      */
     protected $excludedAliases;
 
@@ -55,9 +54,10 @@ class ClassAliasAutoloader
      */
     public static function register(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
     {
-        return tap(new static($shell, $classMapPath, $includedAliases, $excludedAliases), function ($loader) {
-            spl_autoload_register([$loader, 'aliasClass']);
-        });
+        $loader = new static($shell, $classMapPath, $includedAliases, $excludedAliases);
+        spl_autoload_register([$loader, 'aliasClass']);
+
+        return $loader;
     }
 
     /**
@@ -71,19 +71,27 @@ class ClassAliasAutoloader
      */
     public function __construct(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
     {
+        $Collection = class_exists(\Hyperf\Collection\Collection::class)
+            ? \Hyperf\Collection\Collection::class
+            : \Hyperf\Utils\Collection::class;
+
         $this->shell = $shell;
         $this->vendorPath = dirname($classMapPath, 2);
-        $this->includedAliases = collect($includedAliases);
-        $this->excludedAliases = collect($excludedAliases);
+        $this->includedAliases = new $Collection($includedAliases);
+        $this->excludedAliases = new $Collection($excludedAliases);
 
         $classes = require $classMapPath;
+
+        $class_basename = function_exists('\Hyperf\Support\class_basename')
+            ? '\Hyperf\Support\class_basename'
+            : 'class_basename';
 
         foreach ($classes as $class => $path) {
             if (! $this->isAliasable($class, $path)) {
                 continue;
             }
 
-            $name = class_basename($class);
+            $name = $class_basename($class);
 
             if (! isset($this->classes[$name])) {
                 $this->classes[$name] = $class;
@@ -99,7 +107,7 @@ class ClassAliasAutoloader
      */
     public function aliasClass($class)
     {
-        if (Str::contains($class, '\\')) {
+        if (str_contains($class, '\\')) {
             return;
         }
 
@@ -140,22 +148,22 @@ class ClassAliasAutoloader
      */
     public function isAliasable($class, $path)
     {
-        if (! Str::contains($class, '\\')) {
+        if (! str_contains($class, '\\')) {
             return false;
         }
 
         if (! $this->includedAliases->filter(function ($alias) use ($class) {
-            return Str::startsWith($class, $alias);
+            return str_starts_with($class, $alias);
         })->isEmpty()) {
             return true;
         }
 
-        if (Str::startsWith($path, $this->vendorPath)) {
+        if (str_starts_with($path, $this->vendorPath)) {
             return false;
         }
 
         if (! $this->excludedAliases->filter(function ($alias) use ($class) {
-            return Str::startsWith($class, $alias);
+            return str_starts_with($class, $alias);
         })->isEmpty()) {
             return false;
         }

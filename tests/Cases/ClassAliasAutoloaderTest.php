@@ -1,6 +1,6 @@
 <?php
 
-namespace Gokure\HyperfTinker\Tests;
+namespace Gokure\HyperfTinker\Tests\Cases;
 
 use Gokure\HyperfTinker\ClassAliasAutoloader;
 use Mockery;
@@ -9,14 +9,20 @@ use Psy\Shell;
 
 class ClassAliasAutoloaderTest extends TestCase
 {
+    protected string $classmapPath;
+
+    protected ?ClassAliasAutoloader $loader = null;
+
     protected function setUp(): void
     {
-        $this->classmapPath = __DIR__.'/fixtures/vendor/composer/autoload_classmap.php';
+        $this->classmapPath = dirname(__FILE__, 2).'/fixtures/vendor/composer/autoload_classmap.php';
     }
 
     protected function tearDown(): void
     {
-        $this->loader->unregister();
+        if ($this->loader) {
+            $this->loader->unregister();
+        }
     }
 
     public function testCanAliasClasses()
