@@ -1,5 +1,5 @@
 {
-    "name": "tradzero/gokure-hyperf-tinker",
+    "name": "gokure/hyperf-tinker",
     "description": "A Powerful REPL for the Hyperf framework.",
     "keywords": ["hyperf", "tinker", "repl", "psysh"],
     "license": "MIT",
