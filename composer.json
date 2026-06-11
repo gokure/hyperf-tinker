@@ -11,16 +11,16 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
-        "hyperf/contract": "~3.0.0 || ~3.1.0",
-        "hyperf/di": "~3.0.0 || ~3.1.0",
-        "hyperf/command": "~3.0.0 || ~3.1.0",
+        "php": ">=8.2",
+        "hyperf/contract": "~3.2.0",
+        "hyperf/di": "~3.2.0",
+        "hyperf/command": "~3.2.0",
         "psy/psysh": "^0.10.6 || ^0.12.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.6",
-        "hyperf/database": "~3.0.0 || ~3.1.0",
-        "hyperf/testing": "~3.0.0 || ~3.1.0",
+        "hyperf/database": "~3.2.0",
+        "hyperf/testing": "~3.2.0",
         "mockery/mockery": "^1.4.2"
     },
     "autoload": {
@@ -37,7 +37,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-master": "3.2-dev"
         },
         "hyperf": {
             "config": "Gokure\\HyperfTinker\\ConfigProvider"
@@ -50,6 +50,7 @@
     "prefer-stable": true,
     "scripts": {
         "test": "./vendor/bin/co-phpunit --colors=always",
-        "cs-fix": "./vendor/bin/php-cs-fixer fix $1"
+        "cs-fix": "./vendor/bin/php-cs-fixer fix $1",
+        "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./src ./tests"
     }
 }
