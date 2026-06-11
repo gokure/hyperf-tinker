@@ -1,29 +1,39 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of gokure/hyperf-cors.
+ *
+ * @link     https://github.com/gokure/hyperf-cors
+ * @document https://github.com/gokure/hyperf-cors/blob/main/README.md
+ * @contact  gokure@gmail.com
+ * @license  https://github.com/hyperf/hyperf-cors/blob/main/LICENSE
+ */
+
 namespace Gokure\HyperfTinker\Tests\Cases;
 
 use App\Model\User;
 use Gokure\HyperfTinker\TinkerCaster;
+use Hyperf\Collection\Collection;
+use Hyperf\Stringable\Stringable;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class TinkerCasterTest extends TestCase
 {
     public function testCanCastCollection()
     {
-        $Collection = class_exists(\Hyperf\Collection\Collection::class)
-            ? \Hyperf\Collection\Collection::class
-            : \Hyperf\Utils\Collection::class;
-        $result = TinkerCaster::castCollection(new $Collection(['foo', 'bar']));
+        $result = TinkerCaster::castCollection(new Collection(['foo', 'bar']));
 
         $this->assertSame([['foo', 'bar']], array_values($result));
     }
 
     public function testCancastStringable()
     {
-        $Stringable = class_exists(\Hyperf\Stringable\Stringable::class)
-            ? \Hyperf\Stringable\Stringable::class
-            : \Hyperf\Utils\Stringable::class;
-        $result = TinkerCaster::castStringable(new $Stringable('foobar'));
+        $result = TinkerCaster::castStringable(new Stringable('foobar'));
 
         $this->assertSame(['foobar'], array_values($result));
     }

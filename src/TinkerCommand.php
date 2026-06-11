@@ -1,22 +1,28 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of gokure/hyperf-cors.
+ *
+ * @link     https://github.com/gokure/hyperf-cors
+ * @document https://github.com/gokure/hyperf-cors/blob/main/README.md
+ * @contact  gokure@gmail.com
+ * @license  https://github.com/hyperf/hyperf-cors/blob/main/LICENSE
+ */
 
 namespace Gokure\HyperfTinker;
 
-use Psy\Shell;
-use Psy\Configuration;
-use Psy\VersionUpdater\Checker;
+use Hyperf\Command\Command as HyperfCommand;
 use Hyperf\Contract\ConfigInterface;
 use Psr\Container\ContainerInterface;
-use Hyperf\Command\Annotation\Command;
-use Hyperf\Command\Command as HyperfCommand;
-use Symfony\Component\Console\Input\InputOption;
+use Psy\Configuration;
+use Psy\Shell;
+use Psy\VersionUpdater\Checker;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
-/**
- * @Command
- */
+use function Hyperf\Support\env;
+
 class TinkerCommand extends HyperfCommand
 {
     /**
@@ -59,15 +65,15 @@ class TinkerCommand extends HyperfCommand
         $shell = new Shell($config);
         $shell->setIncludes($this->input->getArgument('include'));
 
-        $env = function_exists('\Hyperf\Support\env') ? 'Hyperf\Support\env' : 'env';
-        $path = $env('COMPOSER_VENDOR_DIR', BASE_PATH . DIRECTORY_SEPARATOR . 'vendor');
-
-        $path .= '/composer/autoload_classmap.php';
+        $path = env('COMPOSER_VENDOR_DIR', BASE_PATH . '/vendor/composer/autoload_classmap.php');
 
         $config = $this->container->get(ConfigInterface::class);
 
         $loader = ClassAliasAutoloader::register(
-            $shell, $path, $config->get('tinker.alias', []), $config->get('tinker.dont_alias', [])
+            $shell,
+            $path,
+            $config->get('tinker.alias', []),
+            $config->get('tinker.dont_alias', [])
         );
 
         if ($code = $this->input->getOption('execute')) {
@@ -96,15 +102,13 @@ class TinkerCommand extends HyperfCommand
     protected function getCasters()
     {
         $casters = [
-            'Hyperf\Utils\Collection' => 'Gokure\HyperfTinker\TinkerCaster::castCollection',
             'Hyperf\Collection\Collection' => 'Gokure\HyperfTinker\TinkerCaster::castCollection',
-            'Hyperf\Utils\Stringable' => 'Gokure\HyperfTinker\TinkerCaster::castStringable',
             'Hyperf\Stringable\Stringable' => 'Gokure\HyperfTinker\TinkerCaster::castStringable',
             'Hyperf\Database\Model\Model' => 'Gokure\HyperfTinker\TinkerCaster::castModel',
         ];
 
         $config = $this->container->get(ConfigInterface::class);
 
-        return array_merge($casters, (array)$config->get('tinker.casters', []));
+        return array_merge($casters, (array) $config->get('tinker.casters', []));
     }
 }
